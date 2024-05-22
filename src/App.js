@@ -8,7 +8,6 @@ import { extractLocations, getEvents } from './api';
 function App() {
   const [events, setEvents] = useState([]);
   const [currentNOE, setCurrentNOE] = useState(32);
-  // const [noe, setNoe] = useState(32);
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState('See all cities');
 
@@ -23,8 +22,8 @@ function App() {
 
   useEffect(() => {
     fetchData();
-  }, [currentCity, currentNOE, fetchData]);
-
+  }, [currentCity, currentNOE]);
+  
   return (
     <div className="App">
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
