@@ -1,11 +1,16 @@
 Feature: Show/Hide Event Details
 
-  Scenario: User can show details of an event
-    Given the main page is open
-    When the user clicks on an event
-    Then the user should see the details of that event
+ Scenario: When the details of an event are hidden by default.
+  Given the main page is open
+  When the app displays a list of event
+  Then the event details are hidden by default
 
-  Scenario: User can hide details of an event
-    Given the user has opened the details of an event
-    When the user clicks on hide details
-    Then the details of the event should be hidden
+ Scenario: User clicks to show event details.
+  Given there is an event with hidden details
+  When the user clicks on the event to show details 
+  Then the app should display the details of the event
+
+ Scenario: User clicks to hide event details.
+  Given there is an event with displayed details
+  When the user clicks on the event to hide details again
+  Then the app should hide the details of the event

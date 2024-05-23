@@ -1,13 +1,11 @@
 Feature: Specify Number of Events
 
-  Scenario: User specifies the number of events to display
-    Given the user has opened the Meet app
-    When the user selects a specific number of events to display, e.g., 10
-    Then the app should display the specified number of events on the main page
-    And the displayed events should not exceed the specified number
+ Scenario: When the user hasn’t specified a number, 32 events are shown by default.
+  Given a user has not specified the number of events
+  When the user views the events section
+  Then 32 events are shown by default
 
- Scenario: User resets the number of events to default
-    Given the user has opened the Meet app and selected a specific number of events
-    When the user resets the number of events to the default value
-    Then the app should display the default number of events on the main page
-    And the displayed events should not exceed the default number
+ Scenario: When the user specifies the number of events.
+  Given a user has specified the number of events
+  When the user views the events section 
+  Then the app displays exactly as many events as the user specified

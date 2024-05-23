@@ -1,62 +1,69 @@
 import { loadFeature, defineFeature } from 'jest-cucumber';
-import { render, fireEvent } from '@testing-library/react';
-
-import React from 'react';
+import { render, waitFor, within } from '@testing-library/react';
 import App from '../App';
+import userEvent from '@testing-library/user-event';
 
 const feature = loadFeature('./src/features/specifyNumberOfEvents.feature');
 
 defineFeature(feature, test => {
-  test('User specifies the number of events to display', ({ given, when, then }) => {
-    let mainPage;
+    // Scenario 1
+    test('When the user hasn’t specified a number, 32 events are shown by default.', ({ given, when, then }) => {
+        given('a user has not specified the number of events', () => {
+            // No action required in this step
+        });
 
-    given('the user has opened the Meet app', () => {
-      const { container } = render(<App />);
-      mainPage = container;
+        let AppComponent;
+        when('the user views the events section', () => {
+            AppComponent = render(<App />);
+            const AppDOM = AppComponent.container.firstChild;
+            const EventListDOM = AppDOM.querySelector('#event-list');
+            expect(EventListDOM).toBeInTheDocument();
+        });
+
+        then(/^(\d+) events are shown by default$/, async (arg0) => {
+            const AppDOM = AppComponent.container.firstChild;
+            const EventListDOM = AppDOM.querySelector('#event-list');
+            await waitFor(() => {
+                const EventListItems = within(EventListDOM).queryAllByRole('listitem');
+                expect(EventListItems.length).toBe(32);
+            });
+        });
     });
 
-    when('the user selects a specific number of events to display, e.g., 10', () => {
-        const { getByLabelText, getByTestId } = render(<App />);
-        const numberOfEventsInput = getByLabelText('Number of Events');
-        fireEvent.change(numberOfEventsInput, { target: { value: '10' } });
-        fireEvent.click(getByTestId('apply-btn'));
-      });
+    // Scenario 2
+    test('When the user specifies the number of events.', ({ given, when, then }) => {
+        let AppComponent;
+        given('a user has specified the number of events', async () => {
+            const user = userEvent.setup();
+            AppComponent = render(<App />);
+            const AppDOM = AppComponent.container.firstChild;
 
+            // Wait for the element to be rendered asynchronously
+            await waitFor(() => {
+                const NumberOfEventsDOM = AppDOM.querySelector('#number-of-events');
 
-    then('the app should display the specified number of events on the main page', () => {
-      expect(mainPage.querySelectorAll('.event').length).toBe(10);
+                // Verify if NumberOfEventsDOM exists before querying
+                if (NumberOfEventsDOM) {
+                    const numberOfEventsInput = within(NumberOfEventsDOM).queryByRole('textbox');
+                    user.type(numberOfEventsInput, '{backspace}{backspace}10');
+                } else {
+                    // Handle the case when the element is not found
+                    throw new Error('Element with id #number-of-events not found in the DOM.');
+                }
+            });
+        });
+
+        when('the user views the events section', () => {
+            const AppDOM = AppComponent.container.firstChild;
+            const EventListDOM = AppDOM.querySelector('#event-list');
+            expect(EventListDOM).toBeInTheDocument();
+        });
+
+        then('the app displays exactly as many events as the user specified', () => {
+            const AppDOM = AppComponent.container.firstChild;
+            const EventListDOM = AppDOM.querySelector('#event-list');
+            const allRenderedEventItems = within(EventListDOM).queryAllByRole('listitem');
+            expect(allRenderedEventItems.length).toEqual(10);
+        });
     });
-
-    then('the displayed events should not exceed the specified number', () => {
-      expect(mainPage.querySelectorAll('.event').length).toBeLessThanOrEqual(10);
-    });
-  });
-
-  test('User resets the number of events to default', ({ given, when, then }) => {
-    let mainPage;
-
-    given('the user has opened the Meet app and selected a specific number of events', () => {
-      const { container, getByLabelText, getByTestId } = render(<App />);
-      mainPage = container;
-
-      const numberOfEventsInput = getByLabelText('Number of Events');
-      fireEvent.change(numberOfEventsInput, { target: { value: '10' } });
-      fireEvent.click(getByTestId('apply-btn'));
-    });
-
-    when('the user resets the number of events to the default value', () => {
-      const { getByLabelText, getByTestId } = render(<App />);
-      const numberOfEventsInput = getByLabelText('Number of Events');
-      fireEvent.change(numberOfEventsInput, { target: { value: '' } });
-      fireEvent.click(getByTestId('apply-btn'));
-    });
-
-    then('the app should display the default number of events on the main page', () => {
-      expect(mainPage.querySelectorAll('.event').length).toBe(32); // Assuming the default is 32 events
-    });
-
-    then('the displayed events should not exceed the default number', () => {
-      expect(mainPage.querySelectorAll('.event').length).toBeLessThanOrEqual(32);
-    });
-  });
 });
