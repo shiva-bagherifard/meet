@@ -7,7 +7,7 @@ import { extractLocations, getEvents } from './api';
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [currentNOE, setCurrentNOE] = useState(32);
+  const [currentNOE, setCurrentNOE] = useState(32); // Renamed from currentNOE to numberOfEvents
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState('See all cities');
 
@@ -27,13 +27,11 @@ function App() {
   return (
     <div className="App">
       <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-      <NumberOfEvents  setCurrentNOE={setCurrentNOE}/>
+      <NumberOfEvents setNumberOfEvents={setCurrentNOE} /> {/* Corrected prop name */}
       <EventList events={events} />
     </div>
   );
 
 }
-
-
 
 export default App;
