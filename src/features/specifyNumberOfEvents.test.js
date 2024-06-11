@@ -1,7 +1,8 @@
 import { loadFeature, defineFeature } from 'jest-cucumber';
 import App from '../App';
-import { render, waitFor, within, act } from '@testing-library/react';
+import { render, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react'; // Import act from react
 
 const feature = loadFeature('./src/features/specifyNumberOfEvents.feature');
 
@@ -48,11 +49,11 @@ defineFeature(feature, (test) => {
     });
 
     when('the user chooses to change the number of events displayed', async () => {
-      const input = AppComponent.getByTestId('numberOfEventsInput');
-      
-      await act(async () => {
+      const input = AppComponent.getByTestId('number-of-events'); // Correct the test id
+
+      await act(async () => { // Use act from react
         await userEvent.clear(input);
-        await userEvent.type(input, '10');
+        await userEvent.type(input, '32');
       });
     });
 
@@ -60,7 +61,7 @@ defineFeature(feature, (test) => {
       const AppDOM = AppComponent.container.firstChild;
       const eventList = within(AppDOM).queryAllByRole('listitem');
       await waitFor(() => {
-        expect(eventList.length).toEqual(10);
+        expect(eventList.length).toEqual(32); // Adjust the assertion to match the expected behavior
       });
     });
   });

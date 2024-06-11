@@ -3,12 +3,16 @@ import { getEvents } from '../api';
 import NumberOfEvents from '../components/NumberOfEvents';
 import userEvent from '@testing-library/user-event';
 
+
 describe('<NumberOfEvents /> component', () => {
-    let NumberOfEventsComponent;
-    beforeEach(() => {
-      NumberOfEventsComponent = render(<NumberOfEvents setNumberOfEvents={() => {}} />);
-    });
-    
+  let NumberOfEventsComponent;
+
+  beforeEach(() => {
+    NumberOfEventsComponent = render(
+      <NumberOfEvents setCurrentNOE={() => {}} setErrorAlert={() => {}} />
+    );
+  });
+
   test('has an element with "textbox" role', () => {
     expect(NumberOfEventsComponent.queryByRole("textbox")).toBeInTheDocument();
   });
@@ -22,7 +26,6 @@ describe('<NumberOfEvents /> component', () => {
     const user = userEvent.setup();
     await user.type(numberOfEvents, '{backspace}{backspace}10');
     expect(numberOfEvents).toHaveValue('10');
-  })
-
+  });
 
 });

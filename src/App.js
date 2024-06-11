@@ -4,12 +4,15 @@ import CitySearch from './components/CitySearch';
 import EventList from './components/EventList';
 import NumberOfEvents from './components/NumberOfEvents';
 import { extractLocations, getEvents } from './api';
+import { ErrorAlert, InfoAlert } from './components/Alert';
 
 function App() {
   const [events, setEvents] = useState([]);
-  const [currentNOE, setCurrentNOE] = useState(32); // Renamed from currentNOE to numberOfEvents
+  const [currentNOE, setCurrentNOE] = useState(32);
   const [allLocations, setAllLocations] = useState([]);
   const [currentCity, setCurrentCity] = useState('See all cities');
+  const [infoAlert, setInfoAlert] = useState('');
+  const [errorAlert, setErrorAlert] = useState('');
 
   const fetchData = async () => {
     const allEvents = await getEvents();
@@ -26,12 +29,22 @@ function App() {
   
   return (
     <div className="App">
-      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
-      <NumberOfEvents setNumberOfEvents={setCurrentNOE} /> {/* Corrected prop name */}
+      <div className="alerts-container">
+        {infoAlert && <InfoAlert text={infoAlert} />}
+        {errorAlert && <ErrorAlert text={errorAlert} />}
+      </div>
+      <NumberOfEvents
+        setCurrentNOE={setCurrentNOE} // Ensure setCurrentNOE is passed correctly
+        setErrorAlert={setErrorAlert}
+      />
+      <CitySearch
+       allLocations={allLocations}
+        setCurrentCity={setCurrentCity} 
+        setInfoAlert={setInfoAlert}
+      />
       <EventList events={events} />
     </div>
   );
-
 }
 
 export default App;
