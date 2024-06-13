@@ -1,110 +1,137 @@
-# Meet App
+# MEET APP
 
+# PROJECT DESCRIPTION:
 
-## Project description
-A serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique.
-
-
-## The API the project uses
-The application uses the Google Calendar API to fetch upcoming events.
-
-
-## Serverless Functions
-This app uses serverless functions for authorizing access to public calendar events from the Google Calendar API. The user enters a key and secret to ask for an access token from the authorization server. The server informs the user with a consent screen. When the user agrees by logging into their Google account and giving consent, the app can fetch and show the calendar events.
-
+This meet app combines serverless architecture with Progressive Web App (PWA) features, offering instant loading, offline support, and cross-platform compatibility. Following a Test-Driven Development (TDD) approach, priority is given to quality code and user-centric features. Additionally, this app includes data visualization with charts, enhancing user experience and insight into event data.
 
 ## Key Features:
 
+### ● Filter Events by City
 
-### Filter Events by City.
-As a user, I should be able to filter events by city, so that I can see a list of events taking place in that city.
+**User Story**: As a user, I want to filter events by city so that I can find events happening in my preferred location.
+**Scenario:**
+Given the user is on the event page, When the user selects a specific city from the filter dropdown, Then only events in the selected city should be displayed.
 
+### ● Show/Hide Event Details.
 
-SCENARIO 1: When user hasn’t searched for a specific city, show upcoming events from all cities.
-* **When** the user opens the app;
-* **Then** the user should see a list of upcoming events.
+**User Story**: As a user, I want to view event details, but also have the option to hide them to focus on the event list.
+**Scenario**:
+Given the user is viewing event details, When the user clicks on the "Hide Details" button, Then the event details should be hidden, and only the event list should be visible.
 
+### ● Specify Number of Events.
 
-SCENARIO 2: User should see a list of suggestions when they search for a city.
-* **Given** the main page is open;
-* **When** user starts typing in the city textbox;
-* **Then** the user should receive a list of cities (suggestions) that match what they’ve typed.
+**User Story**: As a user, I want to specify the number of events displayed on the page to manage the amount of information shown.
+**Scenario**:
+Given the user is on the event page, When the user selects a specific number from the dropdown to specify the number of events, Then only the specified number of events should be displayed on the page.
 
+### ● Use the App When Offline.
 
-SCENARIO 3: User can select a city from the suggested list.
-* **Given** user was typing “Berlin” in the city textbox AND the list of suggested cities is showing;
-* **When** the user selects a city (e.g., “Berlin, Germany”) from the list;
-* **Then** their city should be changed to that city (i.e., “Berlin, Germany”) AND the user should receive a list of upcoming events in that city.
+**User Story**: As a user, I want to be able to use the app even when I'm offline so that I can access event information regardless of my internet connection.
+**Scenario**:
+Given the user has previously loaded event data, When the user loses internet connection, Then the app should continue to display previously loaded event data without requiring an internet connection.
 
+### ● Add an App Shortcut to the Home Screen.
 
-### Show/Hide Event Details.
-As a user, I should be able to show and hide event details, so that that I can get more details on an event only when needed.
+**User Story**: As a user, I want to easily access the app by adding a shortcut to my device's home screen for quick access.
+**Scenario**:
+Given the user is using a mobile device to access the app, When the user selects the "Add to Home Screen" option from the browser menu, Then the app should be added to the device's home screen for convenient access.
 
+### ● Display Charts Visualizing Event Details.
 
-SCENARIO 1: When the details of an event are hidden by default.
-* **Given** the main page is open;
-* **When** the app displays a list of event;
-* **Then** the event details are hidden by default.
+**User Story**: As a user, I want to visualize event details through charts to better understand event data and trends.
+**Scenario**:
+Given the user is viewing event details, When the user selects the "Visualize Data" option, Then the app should display charts or graphs representing event data such as attendance, popularity, or location distribution.
 
+## USING SERVERLESS FUNCTIONS:
 
-SCENARIO 2: User slicks to show event details
-* **Given** there is an event with hidden details;
-* **When** the user clicks on the event to show details;
-* **Then** the app should display the details of the event.
+In the Meet app, serverless functions will be employed for various critical functionalities, including event notifications, real-time data processing, user authentication, and event recommendations. These functions offer a lightweight and scalable solution for backend processes, ensuring efficient resource utilization and dynamic scaling based on user demand. With serverless technology, the Meet app can deliver personalized experiences while maintaining cost-effectiveness and seamless scalability.
 
+## Getting Started
 
-SCENARIO 3: User clicks to hide event details 
-* **Given** there is an event with displayed details;
-* **When** the user clicks on the event to hide details again;
-* **Then** the app should hide the details of the event.
+1. Clone the repository: `git clone https://github.com/shiva-bagherifard/meet.git`
+2. Install dependencies: npm install
+3. Start the application: npm start
 
-### Specify Number of Events.
-As a user, I should be able to specify the number of events displayed, so that I can decide how many I want to see at once.
+## Scripts
 
+- `npm start`: Start the development server.
+- `npm build`: Build the application for production.
+- `npm test`: Run tests using JEST.
+- `npm run eject`: Eject from Create React App configuration.
+- `npm run predeploy`: Build script for deployment.
+- `npm run deploy`: Deploy the application to GitHub Pages.
+-
 
-SCENARIO 1: When the user hasn’t specified a number, 32 events are shown by default. 
-* **Given** a user has not specified the number of events;
-* **When** the user views the events section;
-* **Then** 32 events are shown by default.
+## Deployment
 
+The app is deployed on Gh-pages : # MEET APP
 
-SCENARIO 2: When the user specifies the number of events.
-* **Given** a user has specified the number of events;
-* **When** the user views the events section;
-* **Then** the app displays exactly as many events as the user specified.
+# PROJECT DESCRIPTION:
 
+This meet app combines serverless architecture with Progressive Web App (PWA) features, offering instant loading, offline support, and cross-platform compatibility. Following a Test-Driven Development (TDD) approach, priority is given to quality code and user-centric features. Additionally, this app includes data visualization with charts, enhancing user experience and insight into event data.
 
-### Use the App When Offline.
-As a user, I should be able to use the application when I am offline, so that so I can use the app even when I don’t have an internet connection.
+## Key Features:
 
+### ● Filter Events by City
 
-SCENARIO 1: User uses the app when offline
-* **Given** the user is offline;
-* **When** the user interacts with the app;
-* **Then** the app should provide offline functionality.
+**User Story**: As a user, I want to filter events by city so that I can find events happening in my preferred location.
+**Scenario:**
+Given the user is on the event page, When the user selects a specific city from the filter dropdown, Then only events in the selected city should be displayed.
 
+### ● Show/Hide Event Details.
 
-SCENARIO 2: User downloads information for offline usage
-* **Given** the user is online;
-* **When** the user chooses to download information for offline usage;
-* **Then** the app should download and store the necessary data.
+**User Story**: As a user, I want to view event details, but also have the option to hide them to focus on the event list.
+**Scenario**:
+Given the user is viewing event details, When the user clicks on the "Hide Details" button, Then the event details should be hidden, and only the event list should be visible.
 
+### ● Specify Number of Events.
 
-### Add an App Shortcut to the Home Screen.
-As a user, I should be able to add shortcut for the app to my home screen, so that so I can easily navigate to the app whenever I open my browser.
+**User Story**: As a user, I want to specify the number of events displayed on the page to manage the amount of information shown.
+**Scenario**:
+Given the user is on the event page, When the user selects a specific number from the dropdown to specify the number of events, Then only the specified number of events should be displayed on the page.
 
+### ● Use the App When Offline.
 
-SCENARIO 1: User adds app shortcut to home screen
-* **Given** the app is installed on the user's device;
-* **When** the user adds an app shortcut to the home screen;
-* **Then** the app shortcut should be visible on the home screen.
+**User Story**: As a user, I want to be able to use the app even when I'm offline so that I can access event information regardless of my internet connection.
+**Scenario**:
+Given the user has previously loaded event data, When the user loses internet connection, Then the app should continue to display previously loaded event data without requiring an internet connection.
 
+### ● Add an App Shortcut to the Home Screen.
 
-### Display Charts Visualizing Event Details.
-As a user, I should be able to see charts visualizing event details, so that I can quickly see what kind of events there are and where.
+**User Story**: As a user, I want to easily access the app by adding a shortcut to my device's home screen for quick access.
+**Scenario**:
+Given the user is using a mobile device to access the app, When the user selects the "Add to Home Screen" option from the browser menu, Then the app should be added to the device's home screen for convenient access.
 
+### ● Display Charts Visualizing Event Details.
 
-SCENARIO 1: User clicks to see chart of events
-* **Given** the user is on the home screen;
-* **When** the user clicks to see a chart of the events;
-* **Then** the app should display a chart visualizing event details.
+**User Story**: As a user, I want to visualize event details through charts to better understand event data and trends.
+**Scenario**:
+Given the user is viewing event details, When the user selects the "Visualize Data" option, Then the app should display charts or graphs representing event data such as attendance, popularity, or location distribution.
+
+## USING SERVERLESS FUNCTIONS:
+
+In the Meet app, serverless functions will be employed for various critical functionalities, including event notifications, real-time data processing, user authentication, and event recommendations. These functions offer a lightweight and scalable solution for backend processes, ensuring efficient resource utilization and dynamic scaling based on user demand. With serverless technology, the Meet app can deliver personalized experiences while maintaining cost-effectiveness and seamless scalability.
+
+## Getting Started
+
+1. Clone the repository: `git clone https://github.com/shiva-bagherifard/meet.git`
+2. Install dependencies: npm install
+3. Start the application: npm start
+
+## Scripts
+
+- `npm start`: Start the development server.
+- `npm build`: Build the application for production.
+- `npm test`: Run tests using JEST.
+- `npm run eject`: Eject from Create React App configuration.
+- `npm run predeploy`: Build script for deployment.
+- `npm run deploy`: Deploy the application to GitHub Pages.
+-
+
+## Deployment
+
+The app is deployed on Gh-pages : https://shiva-bagherifard.github.io/meet/
+
+## Author
+
+- shiva Bagherifard

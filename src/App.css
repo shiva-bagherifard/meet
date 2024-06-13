@@ -66,13 +66,26 @@
   font-size: 16px;
 }
 .details-button:hover {
-  background-color: #e89c1e; /* Orange on hover */
+  background-color: #ba842e; /* Orange on hover */
 }
-
 .alerts-container {
   position: fixed;
   top: 0px;
   left: 20px;
   width: 250px;
   z-index: 1000;
+}
+
+.charts-container{
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr 1fr;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px){
+  .charts-container {
+    grid-template-columns: 1fr;
+  }
+
 }
